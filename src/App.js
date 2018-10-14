@@ -14,6 +14,8 @@ let store = createStore(ponyApp, applyMiddleware(thunk));
 
 class App extends Component {
   render() {
+    console.log(process.env.REACT_APP_HOST)
+
     return (
       <Provider store={store}>
         <BrowserRouter>

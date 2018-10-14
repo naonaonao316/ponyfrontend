@@ -1,14 +1,15 @@
-const initialState = [
-  {text: "Write code!!"}
-];
+const initialState = [];
 
 export default function notes(state=initialState, action) {
   let noteList = state.slice();
 
   switch(action.type) {
 
+    case 'FETCH_NOTES':
+      return [...state, ...action.notes];
+
     case "ADD_NOTE":
-      return [...state, {text: action.text}];
+      return [...state, action.note];
 
     case "UPDATE_NOTE":
       let noteToUpdate = noteList[action.id];
