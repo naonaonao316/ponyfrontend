@@ -95,6 +95,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "redux-thunk": "^2.3.0",
     "webpack-bundle-tracker": "^0.3.0"
   }
 }

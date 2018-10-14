@@ -4,10 +4,13 @@ import PonyNote from "./components/PonyNote";
 import { NotFound } from "./components/NotFound";
 
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+
 import ponyApp from "./reducers";
 
-let store = createStore(ponyApp);
+
+let store = createStore(ponyApp, applyMiddleware(thunk));
 
 class App extends Component {
   render() {
