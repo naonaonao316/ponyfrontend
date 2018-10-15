@@ -1,17 +1,44 @@
 import * as config_app from "../config/api.js";
 
-export const updateNote = (id, text) => {
-  return {
-    type: 'UPDATE_NOTE',
-    id,
-    text
+export const updateNote = (index, text) => {
+  return (dispatch, getState) => {
+    const body   = JSON.stringify({text,});
+    const noteId = getState().notes[index].id;
+    console.log(body)
+    return fetch(`http://localhost:8000/api/notes/${noteId}/`, {
+      headers: config_app.POST_HEADERS,
+      method: "PUT",
+      body
+    })
+    .then(res => res.json())
+    .then(note => {
+      console.log("note")
+      console.log(note)
+      return dispatch({
+        type: 'UPDATE_NOTE',
+        note,
+        index
+      })
+    })
   }
 }
 
-export const deleteNote = id => {
-  return {
-    type: 'DELETE_NOTE',
-    id
+export const deleteNote = index => {
+  return (dispatch, getState) => {
+    const noteId = getState().notes[index].id;
+
+    return fetch(`http://localhost:8000/api/notes/${noteId}/`, { 
+      headers: config_app.POST_HEADERS,
+      method: "DELETE"
+    })
+    .then(res => {
+      if (res.ok) {
+        return dispatch({
+          type: 'DELETE_NOTE',
+          index
+        })
+      }
+    })
   }
 }
 
@@ -33,7 +60,7 @@ export const addNote = text => {
     const header = {"Content-Type": "application/json"};
     const body = JSON.stringify({text});
     return fetch("http://localhost:8000/api/notes/", {
-      headers: header,
+      headers: config_app.POST_HEADERS,
       method: "POST",
       body
     })

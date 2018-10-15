@@ -12,14 +12,14 @@ export default function notes(state=initialState, action) {
       return [...state, action.note];
 
     case "UPDATE_NOTE":
-      let noteToUpdate = noteList[action.id];
-      noteToUpdate.text = action.text;
-      noteList.splice(action.id, 1, noteToUpdate);
-      console.log(noteList)
+      let noteToUpdate = noteList[action.index];
+      console.log(action)
+      noteToUpdate.text = action.note.text;
+      noteList.splice(action.index, 1, noteToUpdate);
       return noteList;
 
     case "DELETE_NOTE":
-      noteList.splice(action.id, 1);
+      noteList.splice(action.index, 1);
       return noteList;
 
     default:
